@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!-- @css -->
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="pf-module-glasscockpit-testing/glasscockpit-testing.css">
+        <link rel="stylesheet" href="pf-test-instrument.css">
+        <!-- @css -->
+    </head>
+
+    <body>
+        <!-- @body id="PF-TEST-INSTRUMENT" -->
+        <div id="Mainframe">
+            <div id="Electricity" state="off">
+                <div id="panel-container" class="container" state="off">
+                    <div class="content">HELLO</div>
+                </div>
+            </div>
+        </div>
+        <!-- @body -->
+
+        <div id="glasscockpit-testing"></div>
+        
+        <!-- @js path="/Pages/VCockpit/Instruments/TEST_Instrument/PFD"-->
+        <script src="pf-test-instrument-constants.js"></script>
+        <!-- @js -->
+
+        <script src="pf-module-glasscockpit-testing/glasscockpit-testing.js"></script>
+        <script src="pf-module-glasscockpit-testing/rulers.js"></script>
+
+        <script>
+            // TODO Add your variables here (and change the one below when dont needed)
+            glasscockpitTesting.addSimVar(CIRCUIT, "Bool", 0, "circuit_on", 0, 1, 1, 1);
+        </script>
+        
+        <!-- @js path="/Pages/VCockpit/Instruments/TEST_Instrument/PFD"-->
+        <script src="pf-test-instrument.js"></script>
+        <!-- @js -->
+    </body>
+</html>
