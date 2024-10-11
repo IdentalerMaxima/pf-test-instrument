@@ -1,3 +1,5 @@
+// Chrome 49 compatibility checked
+
 let currPage = null;
 
 function showPage(id) {
