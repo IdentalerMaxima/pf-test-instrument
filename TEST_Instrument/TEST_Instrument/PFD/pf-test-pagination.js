@@ -1,13 +1,13 @@
+let currPage = null;
+
 function showPage(id) {
-    console.log(id, 'clicked');
 
-    const pages = document.querySelectorAll('.content');
+    if (currPage) {
+        currPage.style.display = 'none';
+    }
 
-    console.log(pages);
-
-    pages.forEach(page => page.style.display = 'none');
-
-    document.getElementById(id).style.display = '';
+    currPage = document.getElementById(id);
+    currPage.style.display = '';
 }
 
 window.onload = function() {
