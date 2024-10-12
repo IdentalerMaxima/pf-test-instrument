@@ -17,11 +17,13 @@
     height: var(--size-height);
 }
 
-#panel-container .content{
+#panel-container .content, 
+#panel-container .page {
     display: none;
 }
 
-#panel-container[state="on"] .content{
+#panel-container[state="on"] .content,
+#panel-container[state="on"] .page {
     display: block;
 }
 
@@ -39,4 +41,14 @@
 
 .active {
     display: block;
+}
+
+#attitude-indicator-component {
+    background-color: blueviolet;
+    width: var(--size-height);
+    height: var(--size-height);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
