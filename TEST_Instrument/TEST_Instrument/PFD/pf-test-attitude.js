@@ -27,7 +27,9 @@ class AttitudeIndicator extends GlassCockpitParent {
         this.elemPanel = document.createElement("div");
         this.elemPanel.id = "attitude-indicator-component";
         this.elemPanel.classList.add("page");
-        this.elemPanel.setAttribute("state", "off");
+        
+        this.elemPanel.setAttribute("active", "on");
+
         this.elemPanel.innerHTML = `<h1>Attitude Indicator</h1>`;
 
         document.getElementById("panel-container").appendChild(this.elemPanel);
