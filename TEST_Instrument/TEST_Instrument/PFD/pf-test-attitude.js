@@ -36,6 +36,22 @@ class AttitudeIndicator extends GlassCockpitParent {
         const backgroundGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
         backgroundGroup.setAttribute("id", "background");
 
+        const sky = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        sky.setAttribute("x", "0");
+        sky.setAttribute("y", "0");
+        sky.setAttribute("width", "100");
+        sky.setAttribute("height", "50");
+        sky.setAttribute("fill", "#60a1fa");
+        backgroundGroup.appendChild(sky);
+
+        const ground = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        ground.setAttribute("x", "0");
+        ground.setAttribute("y", "50");
+        ground.setAttribute("width", "100");
+        ground.setAttribute("height", "50");
+        ground.setAttribute("fill", "#83623d");
+        backgroundGroup.appendChild(ground);
+
 
 
 
