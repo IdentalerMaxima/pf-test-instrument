@@ -125,6 +125,11 @@ class AttitudeIndicator extends GlassCockpitParent {
             arcMarkingsGroup.appendChild(line);
         });
 
+        const whiteTriangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+        whiteTriangle.setAttribute("points", "50,4.8 48,1 52,1");
+        whiteTriangle.setAttribute("fill", "white");
+        arcMarkingsGroup.appendChild(whiteTriangle);
+
         svg.appendChild(arcMarkingsGroup);
 
 
