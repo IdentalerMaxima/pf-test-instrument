@@ -92,6 +92,17 @@ class AttitudeIndicator extends GlassCockpitParent {
 
         svg.appendChild(artificialHorizonGroup);
 
+        const arcGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        arcGroup.setAttribute("id", "arc");
+
+        const arcPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        arcPath.setAttribute("d", "M 5,50 A 45,45 0 0,1 95,50");
+        arcPath.setAttribute("fill", "none");
+        arcPath.setAttribute("stroke", "white");
+        arcPath.setAttribute("stroke-width", "0.5");
+        arcGroup.appendChild(arcPath);
+        svg.appendChild(arcGroup);
+
         this.elemPanel.appendChild(svg);
 
 
