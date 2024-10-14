@@ -52,6 +52,17 @@ class AttitudeIndicator extends GlassCockpitParent {
         ground.setAttribute("fill", "#83623d");
         backgroundGroup.appendChild(ground);
 
+        const horizonLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        horizonLine.setAttribute("x1", "0");
+        horizonLine.setAttribute("x2", "100");
+        horizonLine.setAttribute("y1", "50");
+        horizonLine.setAttribute("y2", "50");
+        horizonLine.setAttribute("stroke", "white");
+        horizonLine.setAttribute("stroke-width", "0.5");
+        backgroundGroup.appendChild(horizonLine);
+
+        svg.appendChild(backgroundGroup);
+
 
 
 
