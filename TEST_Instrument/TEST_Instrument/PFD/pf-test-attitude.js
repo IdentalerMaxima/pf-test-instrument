@@ -137,6 +137,17 @@ class AttitudeIndicator extends GlassCockpitParent {
         bankAngle.setAttribute("stroke-width", "0.2");
         arcMarkingsGroup.appendChild(bankAngle);
 
+        const slipIndicator = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        slipIndicator.setAttribute("x", "48");
+        slipIndicator.setAttribute("y", "9.4");
+        slipIndicator.setAttribute("width", "4");
+        slipIndicator.setAttribute("height", "0.4");
+        slipIndicator.setAttribute("fill", "yellow");
+        slipIndicator.setAttribute("stroke", "black");
+        slipIndicator.setAttribute("stroke-width", "0.2");
+        slipIndicator.setAttribute("transform", "rotate(35, 50, 50)");
+        arcMarkingsGroup.appendChild(slipIndicator);
+
         svg.appendChild(arcMarkingsGroup);
 
 
