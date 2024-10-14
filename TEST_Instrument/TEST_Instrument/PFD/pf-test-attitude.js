@@ -63,9 +63,36 @@ class AttitudeIndicator extends GlassCockpitParent {
 
         svg.appendChild(backgroundGroup);
 
+        const artificialHorizonGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        artificialHorizonGroup.setAttribute("id", "artificial-horizon");
+
+        const yellowSquare = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        yellowSquare.setAttribute("x", "49.5");
+        yellowSquare.setAttribute("y", "49.7");
+        yellowSquare.setAttribute("width", "1");
+        yellowSquare.setAttribute("height", "1");
+        yellowSquare.setAttribute("fill", "yellow");
+        yellowSquare.setAttribute("stroke", "black");
+        yellowSquare.setAttribute("stroke-width", "0.1");
+        artificialHorizonGroup.appendChild(yellowSquare);
+
+        const leftLShape = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+        leftLShape.setAttribute("points", "20,49.7 41.5,49.7 41.5,51.2 40.9,51.2 40.9,50.3 20,50.3");
+        leftLShape.setAttribute("fill", "yellow");
+        leftLShape.setAttribute("stroke", "black");
+        leftLShape.setAttribute("stroke-width", "0.1");
+        artificialHorizonGroup.appendChild(leftLShape);
+
+        const rightLShape = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+        rightLShape.setAttribute("points", "58.5,49.7 80,49.7 80,50.3 59.1,50.3 59.1,51.2 58.5,51.2");
+        rightLShape.setAttribute("fill", "yellow");
+        rightLShape.setAttribute("stroke", "black");
+        rightLShape.setAttribute("stroke-width", "0.1");
+        artificialHorizonGroup.appendChild(rightLShape);
+
+        svg.appendChild(artificialHorizonGroup);
+
         this.elemPanel.appendChild(svg);
-
-
 
 
 
