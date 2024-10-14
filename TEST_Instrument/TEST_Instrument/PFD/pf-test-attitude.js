@@ -32,6 +32,12 @@ class AttitudeIndicator extends GlassCockpitParent {
         svg.setAttribute("id", "attitude-indicator-svg");
         svg.setAttribute("viewBox", "0 0 100 100");
 
+        // Background
+        const backgroundGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        backgroundGroup.setAttribute("id", "background");
+
+
+
 
 
         // this.elemPanel.innerHTML =
@@ -46,7 +52,7 @@ class AttitudeIndicator extends GlassCockpitParent {
         //                 <!-- Horizon Line -->
         //                 <line x1="0" x2="100" y1="50" y2="50" stroke="white" stroke-width="0.5"/>
         //             </g>
-                
+
         //         <!-- Artificial Horizon -->
         //             <g id="artificial-horizon">
         //                 <!-- Yellow square in the center -->                    
@@ -139,7 +145,7 @@ class AttitudeIndicator extends GlassCockpitParent {
         //                     <text x="65" y="26.75" fill="white" font-size="3">80</text>
 
         //                     <line x1="42" x2="58" y1="24.25" y2="24.25" stroke="white" stroke-width="0.5"</>
-                            
+
         //                     <text x="31" y="23.75" fill="white" font-size="3">90</text>
         //                     <line x1="37" x2="63" y1="22.75" y2="22.75" stroke="white" stroke-width="0.5"</>
         //                     <text x="65" y="23.75" fill="white" font-size="3">90</text>
@@ -178,7 +184,7 @@ class AttitudeIndicator extends GlassCockpitParent {
         //                     <text x="65" y="63" fill="white" font-size="3">-40</text>
 
         //                     <line x1="42" x2="58" y1="63.75" y2="63.75" stroke="white" stroke-width="0.5"</>
-                            
+
         //                     <text x="30" y="66" fill="white" font-size="3">-50</text>
         //                     <line x1="37" x2="63" y1="65.25" y2="65.25" stroke="white" stroke-width="0.5"</>
         //                     <text x="65" y="66" fill="white" font-size="3">-50</text>
