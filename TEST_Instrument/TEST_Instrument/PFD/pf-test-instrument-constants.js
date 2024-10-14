@@ -1,3 +1,6 @@
 const SIZE_WIDTH  = 1024;
 const SIZE_HEIGHT = 768;
 const CIRCUIT = "A:CIRCUIT ON:<CHANGEME>"
+const PITCH = "B:PLANE PITCH";
+const ROLL = "C:PLANE BANK"; 
+const SLIP = "D:PLANE SLIP"; 
