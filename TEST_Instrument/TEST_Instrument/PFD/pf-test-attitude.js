@@ -103,6 +103,56 @@ class AttitudeIndicator extends GlassCockpitParent {
         arcGroup.appendChild(arcPath);
         svg.appendChild(arcGroup);
 
+        const arcMarkingsGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        arcMarkingsGroup.setAttribute("id", "arc-markings");
+
+        const markingLines = [
+            { rotation: -30 },
+            { rotation: 30 },
+            { rotation: -60 },
+            { rotation: 60 },
+        ];
+
+        markingLines.forEach(({ rotation }) => {
+            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            line.setAttribute("x1", "50");
+            line.setAttribute("y1", "5");
+            line.setAttribute("x2", "50");
+            line.setAttribute("y2", "-1");
+            line.setAttribute("stroke", "white");
+            line.setAttribute("stroke-width", "0.5");
+            line.setAttribute("transform", `rotate(${rotation}, 50, 50)`);
+            arcMarkingsGroup.appendChild(line);
+        });
+
+        svg.appendChild(arcMarkingsGroup);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         this.elemPanel.appendChild(svg);
 
 
