@@ -150,36 +150,150 @@ class AttitudeIndicator extends GlassCockpitParent {
 
         svg.appendChild(arcMarkingsGroup);
 
+        const pitchTapeGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        pitchTapeGroup.setAttribute("id", "pitch-tape");
+
+        const upperLines = [
+            { y: 48.25, degree: 5},
+            { y: 46.75, degree: 10},
+            { y: 45.25, degree: 15},
+            { y: 43.75, degree: 20},
+            { y: 42.25, degree: 25},
+            { y: 40.75, degree: 30},
+            { y: 39.25, degree: 35},
+            { y: 37.75, degree: 40},
+            { y: 36.25, degree: 45},
+            { y: 34.75, degree: 50},
+            { y: 33.25, degree: 55},
+            { y: 31.75, degree: 60},
+            { y: 30.25, degree: 65},
+            { y: 28.75, degree: 70},
+            { y: 27.25, degree: 75},
+            { y: 25.75, degree: 80},
+            { y: 24.25, degree: 85},
+            { y: 22.75, degree: 90},
+            { y: 21.25, degree: 95},
+            { y: 19.75, degree: 100},
+
+            
+        ];
+
+        upperLines.forEach(({ y, degree }) => {
+            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+
+            if (degree % 10 === 0) {
+                line.setAttribute("x1", "37");
+                line.setAttribute("x2", "63");
+
+                const textLeft = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                textLeft.setAttribute("x", "31");
+
+                if (degree === 100) textLeft.setAttribute("x", "29.5");
+
+                textLeft.setAttribute("y", y + 1);   
+                textLeft.setAttribute("fill", "white");
+                textLeft.setAttribute("font-size", "3");
+                textLeft.textContent = degree;
+                pitchTapeGroup.appendChild(textLeft);
+
+                const textRight = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                textRight.setAttribute("x", "65");
+
+                if (degree === 100) textRight.setAttribute("x", "65");
+
+                textRight.setAttribute("y", y + 1);
+                textRight.setAttribute("fill", "white");
+                textRight.setAttribute("font-size", "3");
+
+                textRight.textContent = degree;
+                pitchTapeGroup.appendChild(textRight);
+                
+
+            } else {
+                line.setAttribute("x1", "42");
+                line.setAttribute("x2", "58");
+            }
+
+            line.setAttribute("y1", y);
+            line.setAttribute("y2", y);
+            line.setAttribute("stroke", "white");
+            line.setAttribute("stroke-width", "0.5");
+            pitchTapeGroup.appendChild(line);
+    
+        });
+
+        const lowerLines = [
+            { y: 51.75, degree: -5},
+            { y: 53.25, degree: -10},
+            { y: 54.75, degree: -15},
+            { y: 56.25, degree: -20},
+            { y: 57.75, degree: -25},
+            { y: 59.25, degree: -30},
+            { y: 60.75, degree: -35},
+            { y: 62.25, degree: -40},
+            { y: 63.75, degree: -45},
+            { y: 65.25, degree: -50},
+            { y: 66.75, degree: -55},
+            { y: 68.25, degree: -60},
+            { y: 69.75, degree: -65},
+            { y: 71.25, degree: -70},
+            { y: 72.75, degree: -75},
+            { y: 74.25, degree: -80},
+            { y: 75.75, degree: -85},
+            { y: 77.25, degree: -90},
+            { y: 78.75, degree: -95},
+            { y: 80.25, degree: -100},
+        ];
+
+        lowerLines.forEach(({ y, degree }) => {
+
+            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+
+            if (degree % 10 === 0) {
+                line.setAttribute("x1", "37");
+                line.setAttribute("x2", "63");
+
+                const textLeft = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                textLeft.setAttribute("x", "30");
+
+                if (degree === -100) textLeft.setAttribute("x", "28.5");
+
+                textLeft.setAttribute("y", y + 1);
+                textLeft.setAttribute("fill", "white");
+                textLeft.setAttribute("font-size", "3");
+                textLeft.textContent = degree;
+
+                pitchTapeGroup.appendChild(textLeft);
 
 
+                const textRight = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                textRight.setAttribute("x", "65");
+
+                if (degree === -100) textRight.setAttribute("x", "65");
+
+                textRight.setAttribute("y", y + 1);
+                textRight.setAttribute("fill", "white");
+                textRight.setAttribute("font-size", "3");
+                textRight.textContent = degree;
+
+                pitchTapeGroup.appendChild(textRight);
+
+            } else {
+                line.setAttribute("x1", "42");
+                line.setAttribute("x2", "58");
+            }
+
+            line.setAttribute("y1", y);
+            line.setAttribute("y2", y);
+            line.setAttribute("stroke", "white");
+            line.setAttribute("stroke-width", "0.5");
+            pitchTapeGroup.appendChild(line);
+        });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        svg.appendChild(pitchTapeGroup);
 
         this.elemPanel.appendChild(svg);
-
-
-
 
         // this.elemPanel.innerHTML =
 
