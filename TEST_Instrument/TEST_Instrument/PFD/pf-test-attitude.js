@@ -63,6 +63,9 @@ class AttitudeIndicator extends GlassCockpitParent {
 
         svg.appendChild(backgroundGroup);
 
+        this.elemPanel.appendChild(svg);
+
+
 
 
 
