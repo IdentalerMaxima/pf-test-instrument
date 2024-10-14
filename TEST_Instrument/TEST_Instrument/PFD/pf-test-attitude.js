@@ -130,6 +130,13 @@ class AttitudeIndicator extends GlassCockpitParent {
         whiteTriangle.setAttribute("fill", "white");
         arcMarkingsGroup.appendChild(whiteTriangle);
 
+        const bankAngle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+        bankAngle.setAttribute("points", "50,5.5 48,9 52,9");
+        bankAngle.setAttribute("fill", "yellow");
+        bankAngle.setAttribute("stroke", "black");
+        bankAngle.setAttribute("stroke-width", "0.2");
+        arcMarkingsGroup.appendChild(bankAngle);
+
         svg.appendChild(arcMarkingsGroup);
 
 
