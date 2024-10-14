@@ -218,7 +218,7 @@ class AttitudeIndicator extends GlassCockpitParent {
                 textRight.textContent = degree;
 
                 pitchTapeGroup.appendChild(textRight);
-                
+
             } else {
                 line.setAttribute("x1", "42");
                 line.setAttribute("x2", "58");
@@ -260,10 +260,10 @@ class AttitudeIndicator extends GlassCockpitParent {
             const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
 
             if (degree % 10 === 0) {
-                
+
                 line.setAttribute("x1", "37");
                 line.setAttribute("x2", "63");
-                line.setAttribute("y1", y); 
+                line.setAttribute("y1", y);
                 line.setAttribute("y2", y);
                 line.setAttribute("stroke", "white");
                 line.setAttribute("stroke-width", "1");
@@ -272,19 +272,19 @@ class AttitudeIndicator extends GlassCockpitParent {
                 const textLeft = document.createElementNS("http://www.w3.org/2000/svg", "text");
 
                 textLeft.setAttribute("x", degree === -100 ? "29.19" : "30");
-                textLeft.setAttribute("y", y); 
+                textLeft.setAttribute("y", y);
 
-                textLeft.setAttribute("text-anchor", "middle"); 
-                textLeft.setAttribute("dominant-baseline", "middle"); 
+                textLeft.setAttribute("text-anchor", "middle");
+                textLeft.setAttribute("dominant-baseline", "middle");
 
                 textLeft.setAttribute("fill", "white");
                 textLeft.setAttribute("font-size", "3");
                 textLeft.textContent = degree;
 
-                pitchTapeGroup.appendChild(textLeft); 
+                pitchTapeGroup.appendChild(textLeft);
 
                 const textRight = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                
+
                 textRight.setAttribute("x", degree === -100 ? "70.79" : "70");
                 textRight.setAttribute("y", y);
 
@@ -333,6 +333,13 @@ class AttitudeIndicator extends GlassCockpitParent {
         if (electricity && this.elemPanel.getAttribute("state") == "off") {
             this._turnOn();
         }
+
+        let pitch = VarGet(PITCH, "Radians");
+        let bank = VarGet(BANK_ANGLE, "Radians");
+
+        //console.log("Pitch: ", pitch, "Bank: ", bank);
+
+        
     }
 
     _turnOff() {
