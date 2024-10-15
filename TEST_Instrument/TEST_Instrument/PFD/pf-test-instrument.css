@@ -43,14 +43,15 @@
 }
 
 #attitude-indicator-component {
-    background-color: blueviolet;
     width: var(--size-height);
     height: var(--size-height);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background: #60a1fa;
 }
+
 
 #status-component {
     background-color: green;
