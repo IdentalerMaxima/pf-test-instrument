@@ -36,25 +36,32 @@ class AttitudeIndicator extends GlassCockpitParent {
         const backgroundGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
         backgroundGroup.setAttribute("id", "background");
 
+        // Make the background wider than 100 to ensure it fills the area when rotated
+        const backgroundWidth = 200; 
+        const backgroundHeight = 200;
+
         const sky = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        sky.setAttribute("x", "0");
-        sky.setAttribute("y", "0");
-        sky.setAttribute("width", "100");
-        sky.setAttribute("height", "50");
+        sky.setAttribute("id", "sky");
+        sky.setAttribute("x", "-50"); 
+        sky.setAttribute("y", "=100");
+        sky.setAttribute("width", backgroundWidth); 
+        sky.setAttribute("height", backgroundHeight);
         sky.setAttribute("fill", "#60a1fa");
         backgroundGroup.appendChild(sky);
 
         const ground = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        ground.setAttribute("x", "0");
+        ground.setAttribute("id", "ground");
+        ground.setAttribute("x", "-50"); 
         ground.setAttribute("y", "50");
-        ground.setAttribute("width", "100");
-        ground.setAttribute("height", "50");
+        ground.setAttribute("width", backgroundWidth); 
+        ground.setAttribute("height", 100);
         ground.setAttribute("fill", "#83623d");
         backgroundGroup.appendChild(ground);
 
         const horizonLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        horizonLine.setAttribute("x1", "0");
-        horizonLine.setAttribute("x2", "100");
+        horizonLine.setAttribute("id", "horizon");
+        horizonLine.setAttribute("x1", "-50");
+        horizonLine.setAttribute("x2", "150");
         horizonLine.setAttribute("y1", "50");
         horizonLine.setAttribute("y2", "50");
         horizonLine.setAttribute("stroke", "white");
@@ -62,6 +69,7 @@ class AttitudeIndicator extends GlassCockpitParent {
         backgroundGroup.appendChild(horizonLine);
 
         svg.appendChild(backgroundGroup);
+
 
         const artificialHorizonGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
         artificialHorizonGroup.setAttribute("id", "artificial-horizon");
@@ -135,7 +143,7 @@ class AttitudeIndicator extends GlassCockpitParent {
         bankAngle.setAttribute("fill", "yellow");
         bankAngle.setAttribute("stroke", "black");
         bankAngle.setAttribute("stroke-width", "0.2");
-        arcMarkingsGroup.appendChild(bankAngle);
+        svg.appendChild(bankAngle);
 
         const slipIndicator = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         slipIndicator.setAttribute("x", "48");
@@ -145,8 +153,7 @@ class AttitudeIndicator extends GlassCockpitParent {
         slipIndicator.setAttribute("fill", "yellow");
         slipIndicator.setAttribute("stroke", "black");
         slipIndicator.setAttribute("stroke-width", "0.2");
-        slipIndicator.setAttribute("transform", "rotate(35, 50, 50)");
-        arcMarkingsGroup.appendChild(slipIndicator);
+        svg.appendChild(slipIndicator);
 
         svg.appendChild(arcMarkingsGroup);
 
@@ -318,6 +325,10 @@ class AttitudeIndicator extends GlassCockpitParent {
 
     }
 
+    radiansToDegrees(radians) {
+        return radians * (180 / Math.PI);
+    }
+
     Update() {
         super.Update();
         let electricity;
@@ -339,7 +350,34 @@ class AttitudeIndicator extends GlassCockpitParent {
 
         //console.log("Pitch: ", pitch, "Bank: ", bank);
 
-        
+        this.updateArtificialHorizon(pitch, bank);
+
+    }
+
+    updateArtificialHorizon(pitch, bank) {
+        const arc = document.getElementById("arc");
+        const arcMarkings = document.getElementById("arc-markings");
+        const pitchTape = document.getElementById("pitch-tape");
+        const backgroundGroup = document.getElementById("background");
+        const sky = document.getElementById("sky");
+        const ground = document.getElementById("ground");
+
+        arc.setAttribute("transform", `rotate(${bank}, 50, 50)`);
+        arcMarkings.setAttribute("transform", `rotate(${bank}, 50, 50)`);
+        backgroundGroup.setAttribute("transform", `rotate(${bank}, 50, 50)`);
+    
+        pitchTape.setAttribute("transform", `
+            rotate(${bank}, 50, 50)
+            translate(0, ${pitch})
+        `);
+
+        sky.setAttribute("transform", `
+            rotate(${bank}, 50, 50)
+            translate(0, ${pitch})`);
+
+        ground.setAttribute("transform", `
+            rotate(${bank / 180}, 50, 50)
+            translate(0, ${pitch})`);
     }
 
     _turnOff() {
