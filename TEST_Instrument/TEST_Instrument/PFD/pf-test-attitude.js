@@ -58,6 +58,8 @@ class AttitudeIndicator extends GlassCockpitParent {
         ground.setAttribute("fill", "#83623d");
         backgroundGroup.appendChild(ground);
 
+        svg.appendChild(backgroundGroup);
+
         const horizonLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
         horizonLine.setAttribute("id", "horizon");
         horizonLine.setAttribute("x1", "-50");
@@ -325,10 +327,6 @@ class AttitudeIndicator extends GlassCockpitParent {
 
     }
 
-    radiansToDegrees(radians) {
-        return radians * (180 / Math.PI);
-    }
-
     Update() {
         super.Update();
         let electricity;
@@ -345,10 +343,8 @@ class AttitudeIndicator extends GlassCockpitParent {
             this._turnOn();
         }
 
-        let pitch = VarGet(PITCH, "Radians");
+        let pitch = VarGet(PITCH, "Degrees") / Math.PI;
         let bank = VarGet(BANK_ANGLE, "Radians");
-
-        //console.log("Pitch: ", pitch, "Bank: ", bank);
 
         this.updateArtificialHorizon(pitch, bank);
 
@@ -371,12 +367,8 @@ class AttitudeIndicator extends GlassCockpitParent {
             translate(0, ${pitch})
         `);
 
-        sky.setAttribute("transform", `
+        backgroundGroup.setAttribute("transform", `
             rotate(${bank}, 50, 50)
-            translate(0, ${pitch})`);
-
-        ground.setAttribute("transform", `
-            rotate(${bank / 180}, 50, 50)
             translate(0, ${pitch})`);
     }
 
