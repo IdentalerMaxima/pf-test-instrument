@@ -160,6 +160,7 @@ class AttitudeIndicator extends GlassCockpitParent {
         svg.appendChild(bankAngle);
 
         const slipIndicator = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        slipIndicator.setAttribute("id", "slipIndicator");
         slipIndicator.setAttribute("x", "48");
         slipIndicator.setAttribute("y", "9.4");
         slipIndicator.setAttribute("width", "4");
@@ -338,18 +339,19 @@ class AttitudeIndicator extends GlassCockpitParent {
 
         let pitch = VarGet(PITCH, "Degrees");
         let bank = VarGet(BANK_ANGLE, "Radians");
+        let slip = VarGet(SLIP, "Degrees");
 
-        this.updateArtificialHorizon(pitch, bank);
+
+        this.updateArtificialHorizon(pitch, bank, slip);
 
     }
 
-    updateArtificialHorizon(pitch, bank) {
+    updateArtificialHorizon(pitch, bank, slip) {
         const arc = document.getElementById("arc");
         const arcMarkings = document.getElementById("arc-markings");
         const pitchTape = document.getElementById("pitch-tape");
         const backgroundGroup = document.getElementById("background");
-        const sky = document.getElementById("sky");
-        const ground = document.getElementById("ground");
+        const slipIndicator = document.getElementById("slipIndicator");
         const mask = document.getElementById("circular-mask");
 
         arc.setAttribute("transform", `rotate(${bank}, 50, 50)`);
@@ -368,6 +370,10 @@ class AttitudeIndicator extends GlassCockpitParent {
         backgroundGroup.setAttribute("transform", `
             rotate(${bank}, 50, 50)
             translate(0, ${pitch})`);
+        
+        slipIndicator.setAttribute("transform", `
+            rotate(${slip}, 50, 50)
+        `);
     }
 
     _turnOff() {
