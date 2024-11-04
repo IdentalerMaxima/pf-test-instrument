@@ -362,7 +362,6 @@ class AttitudeIndicator extends GlassCockpitParent {
         `);
 
         mask.setAttribute("transform", `
-            rotate(${bank}, 50, 50)
             translate(0, ${-pitch})
         `);
 
