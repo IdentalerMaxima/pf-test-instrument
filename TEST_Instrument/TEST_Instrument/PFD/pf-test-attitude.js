@@ -32,28 +32,41 @@ class AttitudeIndicator extends GlassCockpitParent {
         svg.setAttribute("id", "attitude-indicator-svg");
         svg.setAttribute("viewBox", "0 0 100 100");
 
+        const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+        const clipPath = document.createElementNS("http://www.w3.org/2000/svg", "clipPath");
+        clipPath.setAttribute("id", "circular-mask");
+
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("cx", "50");
+        circle.setAttribute("cy", "50");
+        circle.setAttribute("r", "39");
+        clipPath.appendChild(circle);
+
+        defs.appendChild(clipPath);
+        svg.appendChild(defs); 
+
         // Background
         const backgroundGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
         backgroundGroup.setAttribute("id", "background");
 
         // Make the background wider than 100 to ensure it fills the area when rotated
-        const backgroundWidth = 200; 
+        const backgroundWidth = 200;
         const backgroundHeight = 200;
 
         const sky = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         sky.setAttribute("id", "sky");
-        sky.setAttribute("x", "-50"); 
+        sky.setAttribute("x", "-50");
         sky.setAttribute("y", "100");
-        sky.setAttribute("width", backgroundWidth); 
+        sky.setAttribute("width", backgroundWidth);
         sky.setAttribute("height", backgroundHeight);
         sky.setAttribute("fill", "#60a1fa");
         backgroundGroup.appendChild(sky);
 
         const ground = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         ground.setAttribute("id", "ground");
-        ground.setAttribute("x", "-50"); 
+        ground.setAttribute("x", "-50");
         ground.setAttribute("y", "50");
-        ground.setAttribute("width", backgroundWidth); 
+        ground.setAttribute("width", backgroundWidth);
         ground.setAttribute("height", backgroundHeight);
         ground.setAttribute("fill", "#83623d");
         backgroundGroup.appendChild(ground);
@@ -71,7 +84,6 @@ class AttitudeIndicator extends GlassCockpitParent {
         backgroundGroup.appendChild(horizonLine);
 
         svg.appendChild(backgroundGroup);
-
 
         const artificialHorizonGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
         artificialHorizonGroup.setAttribute("id", "artificial-horizon");
@@ -161,37 +173,15 @@ class AttitudeIndicator extends GlassCockpitParent {
 
         const pitchTapeGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
         pitchTapeGroup.setAttribute("id", "pitch-tape");
-
-        // let upperLines = [
-        //     { y: 48.25, degree: 5 },
-        //     { y: 46.75, degree: 10 },
-        //     { y: 45.25, degree: 15 },
-        //     { y: 43.75, degree: 20 },
-        //     { y: 42.25, degree: 25 },
-        //     { y: 40.75, degree: 30 },
-        //     { y: 39.25, degree: 35 },
-        //     { y: 37.75, degree: 40 },
-        //     { y: 36.25, degree: 45 },
-        //     { y: 34.75, degree: 50 },
-        //     { y: 33.25, degree: 55 },
-        //     { y: 31.75, degree: 60 },
-        //     { y: 30.25, degree: 65 },
-        //     { y: 28.75, degree: 70 },
-        //     { y: 27.25, degree: 75 },
-        //     { y: 25.75, degree: 80 },
-        //     { y: 24.25, degree: 85 },
-        //     { y: 22.75, degree: 90 },
-        //     { y: 21.25, degree: 95 },
-        //     { y: 19.75, degree: 100 },
-        // ];
+        pitchTapeGroup.setAttribute("clip-path", "url(#circular-mask)");
 
         let upperLines = [];
 
         let uy = 45;
         let udegree = 5;
 
-        while(udegree <= 100){
-            upperLines.push({y: uy, degree: udegree});
+        while (udegree <= 100) {
+            upperLines.push({ y: uy, degree: udegree });
             uy -= 5;
             udegree += 5;
         }
@@ -252,36 +242,13 @@ class AttitudeIndicator extends GlassCockpitParent {
 
         });
 
-        // const lowerLines = [
-        //     { y: 51.75, degree: -5 },
-        //     { y: 53.25, degree: -10 },
-        //     { y: 54.75, degree: -15 },
-        //     { y: 56.25, degree: -20 },
-        //     { y: 57.75, degree: -25 },
-        //     { y: 59.25, degree: -30 },
-        //     { y: 60.75, degree: -35 },
-        //     { y: 62.25, degree: -40 },
-        //     { y: 63.75, degree: -45 },
-        //     { y: 65.25, degree: -50 },
-        //     { y: 66.75, degree: -55 },
-        //     { y: 68.25, degree: -60 },
-        //     { y: 69.75, degree: -65 },
-        //     { y: 71.25, degree: -70 },
-        //     { y: 72.75, degree: -75 },
-        //     { y: 74.25, degree: -80 },
-        //     { y: 75.75, degree: -85 },
-        //     { y: 77.25, degree: -90 },
-        //     { y: 78.75, degree: -95 },
-        //     { y: 80.25, degree: -100 },
-        // ];
-
         let lowerLines = [];
 
         let ly = 55;
         let ldegree = -5;
 
-        while(ldegree >= -100){
-            lowerLines.push({y: ly, degree: ldegree});
+        while (ldegree >= -100) {
+            lowerLines.push({ y: ly, degree: ldegree });
             ly += 5;
             ldegree -= 5;
         }
@@ -343,6 +310,8 @@ class AttitudeIndicator extends GlassCockpitParent {
         });
 
 
+        pitchTapeGroup.setAttribute("clip-path", "url(#circular-mask)");
+
         svg.appendChild(pitchTapeGroup);
 
         this.elemPanel.appendChild(svg);
@@ -381,14 +350,20 @@ class AttitudeIndicator extends GlassCockpitParent {
         const backgroundGroup = document.getElementById("background");
         const sky = document.getElementById("sky");
         const ground = document.getElementById("ground");
+        const mask = document.getElementById("circular-mask");
 
         arc.setAttribute("transform", `rotate(${bank}, 50, 50)`);
         arcMarkings.setAttribute("transform", `rotate(${bank}, 50, 50)`);
         backgroundGroup.setAttribute("transform", `rotate(${bank}, 50, 50)`);
-    
+
         pitchTape.setAttribute("transform", `
             rotate(${bank}, 50, 50)
             translate(0, ${pitch})
+        `);
+
+        mask.setAttribute("transform", `
+            rotate(${bank}, 50, 50)
+            translate(0, ${-pitch})
         `);
 
         backgroundGroup.setAttribute("transform", `
