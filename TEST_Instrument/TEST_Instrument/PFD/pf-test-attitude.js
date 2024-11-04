@@ -1,5 +1,6 @@
 class AttitudeIndicator extends GlassCockpitParent {
     constructor() {
+        
         super();
     }
 
@@ -26,7 +27,7 @@ class AttitudeIndicator extends GlassCockpitParent {
         this.elemPanel.id = "attitude-indicator-component";
         this.elemPanel.classList.add("page");
 
-        this.elemPanel.setAttribute("active", "on");
+        this.elemPanel.setAttribute("active", "off");
 
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("id", "attitude-indicator-svg");
@@ -187,8 +188,6 @@ class AttitudeIndicator extends GlassCockpitParent {
             udegree += 5;
         }
 
-        console.log(upperLines);
-
         upperLines.forEach(({ y, degree }) => {
             const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
 
@@ -253,8 +252,6 @@ class AttitudeIndicator extends GlassCockpitParent {
             ly += 5;
             ldegree -= 5;
         }
-
-        console.log(lowerLines);
 
         lowerLines.forEach(({ y, degree }) => {
 
