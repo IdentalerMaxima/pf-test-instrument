@@ -394,6 +394,7 @@ class Status extends GlassCockpitParent {
         let E2EGT = VarGet(E2_EGT, "Degrees");
 
         this.updateEGT(E1EGT, E2EGT);
+        this.updateEGTText(E1EGT, E2EGT);
     }
 
     updateFlapIndicator(leftValue, rightValue) {
@@ -403,9 +404,9 @@ class Status extends GlassCockpitParent {
         const rMagenta40 = document.getElementById("rMagenta40");
         const leftFlapIndicator = document.getElementById("leftFlapIndicator");
         const rightFlapIndicator = document.getElementById("rightFlapIndicator");
-    
+
         if (lMagenta20 && rMagenta20 && lMagenta40 && rMagenta40) {
-            
+
             // Helper function to show element and set height for specified duration
             const showAndSetHeight = (element, value, duration) => {
                 if (element) {
@@ -415,28 +416,28 @@ class Status extends GlassCockpitParent {
                     }, duration);
                 }
             };
-    
+
             if (leftValue >= 40) {
-                if ((leftFlapIndicator.getAttribute("height")) != 12.5){
+                if ((leftFlapIndicator.getAttribute("height")) != 12.5) {
                     showAndSetHeight(lMagenta40, leftValue, 1000);
                 }
                 leftFlapIndicator.setAttribute("height", 12.5)
             } else if (leftValue > 0) {
-                if ((leftFlapIndicator.getAttribute("height")) != 6){
+                if ((leftFlapIndicator.getAttribute("height")) != 6) {
                     showAndSetHeight(lMagenta20, leftValue, 1000);
                 }
                 leftFlapIndicator.setAttribute("height", 6)
             } else {
                 leftFlapIndicator.setAttribute("height", 0);
             }
-    
+
             if (rightValue >= 40) {
-                if ((rightFlapIndicator.getAttribute("height")) != 12.5){
+                if ((rightFlapIndicator.getAttribute("height")) != 12.5) {
                     showAndSetHeight(rMagenta40, rightValue, 1000);
                 }
                 rightFlapIndicator.setAttribute("height", 12.5)
             } else if (rightValue > 0) {
-                if ((rightFlapIndicator.getAttribute("height")) != 6){
+                if ((rightFlapIndicator.getAttribute("height")) != 6) {
                     showAndSetHeight(rMagenta20, rightValue, 1000);
                 }
                 rightFlapIndicator.setAttribute("height", 6)
@@ -449,42 +450,69 @@ class Status extends GlassCockpitParent {
     updateEGT(leftEgtTemp, rightEgtTemp) {
         const minTemp = 100;
         const maxTemp = 899;
-        const maxFillHeight = 32;  
-        const containerBottom = 62; // Offset
-    
-        // Temperature thresholds for color change
+        const maxFillHeight = 32;
+        const containerBottom = 62;
+
         const yellowLimit = 680;
         const redLimit = 750;
-        
+
         const EGLFilling = document.getElementById("EGLFilling");
         const EGRFilling = document.getElementById("EGRFilling");
-    
-        // Calculate fill heights
+
+
         const leftFillHeight = ((leftEgtTemp - minTemp) / (maxTemp - minTemp)) * maxFillHeight;
         const rightFillHeight = ((rightEgtTemp - minTemp) / (maxTemp - minTemp)) * maxFillHeight;
-    
-        // Set height and position (bottom to top)
+
         EGLFilling.setAttribute("height", leftFillHeight);
         EGLFilling.setAttribute("y", containerBottom - leftFillHeight);
-    
+
         EGRFilling.setAttribute("height", rightFillHeight);
         EGRFilling.setAttribute("y", containerBottom - rightFillHeight);
-    
-        // Set color based on temperature limits
+
+
         const getColorByTemp = (temp) => {
             if (temp >= redLimit) return "#ff0000";
             if (temp >= yellowLimit) return "#ffc700";
             return "#00aa11";
         };
-    
-        // Apply color based on temperature ranges
+
         EGLFilling.setAttribute("fill", getColorByTemp(leftEgtTemp));
         EGRFilling.setAttribute("fill", getColorByTemp(rightEgtTemp));
     }
-    
-    
-    
-    
+
+    updateEGTText(leftEgtTemp, rightEgtTemp) {
+        const leftExhaustText = document.getElementById("leftExhaustText2");
+        const rightExhaustText = document.getElementById("rightExhaustText2");
+
+        const yellowLimit = 680;
+        const redLimit = 750;
+
+        if (leftExhaustText) {
+            leftExhaustText.textContent = `${leftEgtTemp}°C`;
+
+            if (leftEgtTemp > redLimit) {
+                leftExhaustText.setAttribute("fill", "#ff0000");
+            } else if (leftEgtTemp > yellowLimit) {
+                leftExhaustText.setAttribute("fill", "#ffc700");
+            } else {
+                leftExhaustText.setAttribute("fill", "#00aa11");
+            }
+        }
+
+
+        if (rightExhaustText) {
+            rightExhaustText.textContent = `${rightEgtTemp}°C`;
+
+            if (rightEgtTemp > redLimit) {
+                rightExhaustText.setAttribute("fill", "#ff0000");
+            } else if (rightEgtTemp > yellowLimit) {
+                rightExhaustText.setAttribute("fill", "#ffc700");
+            } else {
+                rightExhaustText.setAttribute("fill", "#00aa11");
+            }
+        }
+    }
+
 
     _turnOff() {
         this.elemPanel.setAttribute("state", "off");
