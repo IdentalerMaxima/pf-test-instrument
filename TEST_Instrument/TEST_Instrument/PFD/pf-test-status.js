@@ -46,6 +46,11 @@ class Status extends GlassCockpitParent {
         const EGLX = 80;
         const EGRX = 100;
 
+        const EGLTemp = 80;
+        const EGRTemp = 100;
+
+
+
 
         this.elemPanel = document.createElement("div");
         this.elemPanel.id = "status-component";
@@ -216,6 +221,16 @@ class Status extends GlassCockpitParent {
 
         svg.appendChild(exhaustGasTitle2);
 
+        const EGLFilling = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        EGLFilling.setAttribute("id", "EGLFilling");
+        EGLFilling.setAttribute("width", widthOfBg);
+
+        EGLFilling.setAttribute("fill", "#00aa11");
+        EGLFilling.setAttribute("x", 70);
+        EGLFilling.setAttribute("y", yBg + 10);
+
+        svg.appendChild(EGLFilling);
+
         const exhaustGasTempLeft = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         exhaustGasTempLeft.setAttribute("id", "exhaustGasTempLeft");
         exhaustGasTempLeft.setAttribute("width", widthOfBg);
@@ -232,8 +247,8 @@ class Status extends GlassCockpitParent {
         EGLIndicatorRed.setAttribute("id", "EGLIndicatorRed");
         EGLIndicatorRed.setAttribute("width", 1.8);
         EGLIndicatorRed.setAttribute("height", 0.2);
-        EGLIndicatorRed.setAttribute("fill", "red");
-        EGLIndicatorRed.setAttribute("stroke", "red");
+        EGLIndicatorRed.setAttribute("fill", "#ff0000");
+        EGLIndicatorRed.setAttribute("stroke", "#ff0000");
         EGLIndicatorRed.setAttribute("stroke-width", "0.5");
         EGLIndicatorRed.setAttribute("x", EGLX - 2);
         EGLIndicatorRed.setAttribute("y", yBg + 4);
@@ -244,8 +259,8 @@ class Status extends GlassCockpitParent {
         EGLIndicatorYellow.setAttribute("id", "EGLIndicatorYellow");
         EGLIndicatorYellow.setAttribute("width", 1.8);
         EGLIndicatorYellow.setAttribute("height", 0.2);
-        EGLIndicatorYellow.setAttribute("fill", "yellow");
-        EGLIndicatorYellow.setAttribute("stroke", "yellow");
+        EGLIndicatorYellow.setAttribute("fill", "#ffc700");
+        EGLIndicatorYellow.setAttribute("stroke", "#ffc700");
         EGLIndicatorYellow.setAttribute("stroke-width", "0.5");
         EGLIndicatorYellow.setAttribute("x", EGLX - 2);
         EGLIndicatorYellow.setAttribute("y", yBg + 8);
@@ -272,9 +287,20 @@ class Status extends GlassCockpitParent {
         leftExhaustText2.setAttribute("font-size", titleFontSize);
         leftExhaustText2.setAttribute("font-family", "Arial");
         leftExhaustText2.setAttribute("font-weight", "bold");
-        leftExhaustText2.textContent = "TEMP";
+        leftExhaustText2.textContent = "100C°";
+        leftExhaustText2.setAttribute("fill", "#00aa11");
 
         svg.appendChild(leftExhaustText2);
+
+        const EGRFilling = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        EGRFilling.setAttribute("id", "EGRFilling");
+        EGRFilling.setAttribute("width", widthOfBg);
+        EGRFilling.setAttribute("height", 20);
+        EGRFilling.setAttribute("fill", "#00aa11");
+        EGRFilling.setAttribute("x", 70 + spaceBetweenBg);
+        EGRFilling.setAttribute("y", yBg);
+
+        svg.appendChild(EGRFilling);
 
         const exhaustGasTempRight = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         exhaustGasTempRight.setAttribute("id", "exhaustGasTempRight");
@@ -292,8 +318,8 @@ class Status extends GlassCockpitParent {
         EGRIndicatorRed.setAttribute("id", "EGRIndicatorRed");
         EGRIndicatorRed.setAttribute("width", 1.8);
         EGRIndicatorRed.setAttribute("height", 0.2);
-        EGRIndicatorRed.setAttribute("fill", "red");
-        EGRIndicatorRed.setAttribute("stroke", "red");
+        EGRIndicatorRed.setAttribute("fill", "#ff0000");
+        EGRIndicatorRed.setAttribute("stroke", "#ff0000");
         EGRIndicatorRed.setAttribute("stroke-width", "0.5");
         EGRIndicatorRed.setAttribute("x", EGRX - 2);
         EGRIndicatorRed.setAttribute("y", yBg + 4);
@@ -304,8 +330,8 @@ class Status extends GlassCockpitParent {
         EGRIndicatorYellow.setAttribute("id", "EGRIndicatorYellow");
         EGRIndicatorYellow.setAttribute("width", 1.8);
         EGRIndicatorYellow.setAttribute("height", 0.2);
-        EGRIndicatorYellow.setAttribute("fill", "yellow");
-        EGRIndicatorYellow.setAttribute("stroke", "yellow");
+        EGRIndicatorYellow.setAttribute("fill", "#ffc700");
+        EGRIndicatorYellow.setAttribute("stroke", "#ffc700");
         EGRIndicatorYellow.setAttribute("stroke-width", "0.5");
         EGRIndicatorYellow.setAttribute("x", EGRX - 2);
         EGRIndicatorYellow.setAttribute("y", yBg + 8);
@@ -332,7 +358,8 @@ class Status extends GlassCockpitParent {
         rightExhaustText2.setAttribute("font-size", titleFontSize);
         rightExhaustText2.setAttribute("font-family", "Arial");
         rightExhaustText2.setAttribute("font-weight", "bold");
-        rightExhaustText2.textContent = "TEMP2";
+        rightExhaustText2.textContent = "100C°";
+        rightExhaustText2.setAttribute("fill", "#00aa11");
 
         svg.appendChild(rightExhaustText2);
 
@@ -362,6 +389,11 @@ class Status extends GlassCockpitParent {
         let rflap = VarGet(RIGHT_FLAP, "Degrees");
 
         this.updateFlapIndicator(lflap, rflap);
+
+        let E1EGT = VarGet(E1_EGT, "Degrees");
+        let E2EGT = VarGet(E2_EGT, "Degrees");
+
+        this.updateEGT(E1EGT, E2EGT);
     }
 
     updateFlapIndicator(leftValue, rightValue) {
@@ -413,8 +445,46 @@ class Status extends GlassCockpitParent {
             }
         }
     }
-    
 
+    updateEGT(leftEgtTemp, rightEgtTemp) {
+        const minTemp = 100;
+        const maxTemp = 899;
+        const maxFillHeight = 32;  
+        const containerBottom = 62; // Offset
+    
+        // Temperature thresholds for color change
+        const yellowLimit = 680;
+        const redLimit = 750;
+        
+        const EGLFilling = document.getElementById("EGLFilling");
+        const EGRFilling = document.getElementById("EGRFilling");
+    
+        // Calculate fill heights
+        const leftFillHeight = ((leftEgtTemp - minTemp) / (maxTemp - minTemp)) * maxFillHeight;
+        const rightFillHeight = ((rightEgtTemp - minTemp) / (maxTemp - minTemp)) * maxFillHeight;
+    
+        // Set height and position (bottom to top)
+        EGLFilling.setAttribute("height", leftFillHeight);
+        EGLFilling.setAttribute("y", containerBottom - leftFillHeight);
+    
+        EGRFilling.setAttribute("height", rightFillHeight);
+        EGRFilling.setAttribute("y", containerBottom - rightFillHeight);
+    
+        // Set color based on temperature limits
+        const getColorByTemp = (temp) => {
+            if (temp >= redLimit) return "#ff0000";
+            if (temp >= yellowLimit) return "#ffc700";
+            return "#00aa11";
+        };
+    
+        // Apply color based on temperature ranges
+        EGLFilling.setAttribute("fill", getColorByTemp(leftEgtTemp));
+        EGRFilling.setAttribute("fill", getColorByTemp(rightEgtTemp));
+    }
+    
+    
+    
+    
 
     _turnOff() {
         this.elemPanel.setAttribute("state", "off");
