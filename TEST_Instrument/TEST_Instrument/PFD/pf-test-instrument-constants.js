@@ -10,3 +10,6 @@ const SLIP = "A:SLIP DEGREES";
 const LEFT_FLAP = "A:LEFT_FLAP"; 
 const RIGHT_FLAP = "A:RIGHT_FLAP"; 
 
+const E1_EGT = "A:E1_EGT"; 
+const E2_EGT = "A:E2_EGT"; 
+
