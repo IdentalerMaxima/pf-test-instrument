@@ -42,6 +42,10 @@ class Status extends GlassCockpitParent {
         const leftMagentaY = 30;
         const magentaStrokeWidth = 0.5;
 
+        // EGIndicators
+        const EGLX = 80;
+        const EGRX = 100;
+
 
         this.elemPanel = document.createElement("div");
         this.elemPanel.id = "status-component";
@@ -224,6 +228,30 @@ class Status extends GlassCockpitParent {
 
         svg.appendChild(exhaustGasTempLeft);
 
+        const EGLIndicatorRed = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        EGLIndicatorRed.setAttribute("id", "EGLIndicatorRed");
+        EGLIndicatorRed.setAttribute("width", 1.8);
+        EGLIndicatorRed.setAttribute("height", 0.2);
+        EGLIndicatorRed.setAttribute("fill", "red");
+        EGLIndicatorRed.setAttribute("stroke", "red");
+        EGLIndicatorRed.setAttribute("stroke-width", "0.5");
+        EGLIndicatorRed.setAttribute("x", EGLX - 2);
+        EGLIndicatorRed.setAttribute("y", yBg + 4);
+
+        svg.appendChild(EGLIndicatorRed);
+
+        const EGLIndicatorYellow = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        EGLIndicatorYellow.setAttribute("id", "EGLIndicatorYellow");
+        EGLIndicatorYellow.setAttribute("width", 1.8);
+        EGLIndicatorYellow.setAttribute("height", 0.2);
+        EGLIndicatorYellow.setAttribute("fill", "yellow");
+        EGLIndicatorYellow.setAttribute("stroke", "yellow");
+        EGLIndicatorYellow.setAttribute("stroke-width", "0.5");
+        EGLIndicatorYellow.setAttribute("x", EGLX - 2);
+        EGLIndicatorYellow.setAttribute("y", yBg + 8);
+
+        svg.appendChild(EGLIndicatorYellow);
+
         const leftExhaustText1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         leftExhaustText1.setAttribute("id", "leftExhaustText1");
         leftExhaustText1.setAttribute("x", "70" - 1);
@@ -259,6 +287,30 @@ class Status extends GlassCockpitParent {
         exhaustGasTempRight.setAttribute("y", yBg);
 
         svg.appendChild(exhaustGasTempRight);
+
+        const EGRIndicatorRed = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        EGRIndicatorRed.setAttribute("id", "EGRIndicatorRed");
+        EGRIndicatorRed.setAttribute("width", 1.8);
+        EGRIndicatorRed.setAttribute("height", 0.2);
+        EGRIndicatorRed.setAttribute("fill", "red");
+        EGRIndicatorRed.setAttribute("stroke", "red");
+        EGRIndicatorRed.setAttribute("stroke-width", "0.5");
+        EGRIndicatorRed.setAttribute("x", EGRX - 2);
+        EGRIndicatorRed.setAttribute("y", yBg + 4);
+
+        svg.appendChild(EGRIndicatorRed);
+
+        const EGRIndicatorYellow = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        EGRIndicatorYellow.setAttribute("id", "EGRIndicatorYellow");
+        EGRIndicatorYellow.setAttribute("width", 1.8);
+        EGRIndicatorYellow.setAttribute("height", 0.2);
+        EGRIndicatorYellow.setAttribute("fill", "yellow");
+        EGRIndicatorYellow.setAttribute("stroke", "yellow");
+        EGRIndicatorYellow.setAttribute("stroke-width", "0.5");
+        EGRIndicatorYellow.setAttribute("x", EGRX - 2);
+        EGRIndicatorYellow.setAttribute("y", yBg + 8);
+
+        svg.appendChild(EGRIndicatorYellow);
 
         const rightExhaustText1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         rightExhaustText1.setAttribute("id", "rightExhaustText1");
